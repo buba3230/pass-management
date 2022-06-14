@@ -1,0 +1,60 @@
+:host{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.register-form {
+    min-width: 290px;
+    background-color:bisque;
+    opacity: 0.9;
+    padding: 20px;
+    margin: 5px 10px;
+    border-radius: 10% 0;
+    border: 2px solid black;
+
+    h4 {
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+        input {
+            width: 100%;
+            line-height: 1.5rem;
+            border-radius: 5px;
+            border: 0;
+            outline: 0;
+        }
+        input:focus {
+            outline: 1px solid black;
+        }
+
+        .alert {
+            color: red;
+            font-size: smaller;
+        }
+    }
+
+    .panels {
+        display: flex;
+        justify-content: space-around;
+        .btn {
+            width: 100px;
+            border-radius: 5px;
+            height: 1.5rem;
+            border: 0;
+            cursor: pointer;
+            &-primary {
+                background-color:lightcoral;
+            }
+
+            &-secondary {
+                background-color:aquamarine;
+            }
+        }
+    }
+}

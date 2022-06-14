@@ -1,0 +1,17 @@
+{
+    "users" : [
+        {
+            "id": 1,
+            "name": "Vitalii",
+            "e-mail": "buba3230@gmail.com",
+            "password": "qqqwwweee1",
+            "devices": [
+                {
+                    "deviceId": 1,
+                    "deviceName": "phone",
+                    "devicePassword": "aaasssddd1"
+                }
+            ]
+        }
+    ]
+}
