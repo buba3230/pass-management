@@ -7,7 +7,7 @@ export interface DevicesInterface {
 export interface UserInterface {
     "id": number;
     "name": string;
-    "e-mail": string;
+    "email": string;
     "password": string;
     "devices"?: DevicesInterface[]
 }

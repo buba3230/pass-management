@@ -7,7 +7,7 @@ export const userFeatureSelector = createFeatureSelector<
     UserStateInterface
 >('user');
 
-export const selectedUserByIdSelector = createSelector(
+export const selectedUserSelector = createSelector(
     userFeatureSelector,
     (userState: UserStateInterface) => userState.selectedUser
 )

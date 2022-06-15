@@ -5,11 +5,12 @@ import {
     getUserByIdFailureAction,
     getUserByIdSuccessAction
 } from "src/app/store/actions/user.actions";
+import { getItem } from "../state/store";
 import { UserStateInterface } from "../types/userState.interface";
 
 const initialState: UserStateInterface = {
     user: null,
-    selectedUser: { "id": 0, "name": "", "e-mail": "", "password": "" },
+    selectedUser: getItem('selectedUser'),
     error: null
 }
 

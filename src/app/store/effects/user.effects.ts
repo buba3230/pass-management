@@ -12,6 +12,7 @@ import {
     getUserByIdAction, getUserByIdSuccessAction, getUserByIdFailureAction,
     getUserByInfoAction, getUserByInfoFailureAction,
 } from "../actions/user.actions";
+import { clearSessionStorage, setItem } from "../state/store";
 
 @Injectable()
 export class userEffects {
@@ -55,6 +56,7 @@ export class userEffects {
         this.actions$.pipe(
             ofType(getUserByInfoAction),
             switchMap(({ user }) => {
+                clearSessionStorage();
                 return this.userService.getUserByInfo(user).pipe(
                     map((user: UserInterface) => {
                         return getUserByIdAction({ id: user ? user.id : 0 })
@@ -106,7 +108,8 @@ export class userEffects {
     redirectAfterSignIn$ = createEffect(
         () => this.actions$.pipe(
             ofType(getUserByIdSuccessAction),
-            tap(() => {
+            tap(({ user }) => {
+                setItem('selectedUser', user)
                 this.router.navigateByUrl('/dashboard');
             })
         ),

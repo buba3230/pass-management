@@ -1,0 +1,86 @@
+:host {
+    display:flex;
+    flex-direction: column;
+    padding: 15px;
+    height: calc(100vh-30px);
+    width: calc(100vw-30px);
+}
+
+h4 {
+    margin: 0;
+}
+
+.mainModifyform {
+    margin-top: 16px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    input {
+        width: 100%;
+        line-height: 1.5rem;
+        border-radius: 5px;
+        border: 0;
+        outline: 1px solid black;
+    }
+    input:focus {
+        outline: 1px solid lightcoral;
+    }
+
+    .alert {
+        color: red;
+        font-size: smaller;
+    }
+}
+
+.btns {
+    display: flex;
+    justify-content: space-around;
+    .btn {
+        width: 100px;
+        border-radius: 5px;
+        height: 1.5rem;
+        border: 0;
+        cursor: pointer;
+        &-primary {
+            background-color:lightcoral;
+        }
+
+        &-secondary {
+            background-color:aquamarine;
+        }
+    }
+}
+
+.main-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 15px;
+    .info {
+        padding: 15px;
+        width: 100%;
+        border: 1px solid black;
+    }
+    .info-panel {
+        padding: 15px;
+        width: 100%;
+        border: 1px solid black;
+    }
+}
+
+.devices-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .device-info {
+        padding: 15px;
+        width: 100%;
+        border: 1px solid black;
+    }
+    .device-panel {
+        padding: 15px;
+        width: 100%;
+        border: 1px solid black;
+    }
+}

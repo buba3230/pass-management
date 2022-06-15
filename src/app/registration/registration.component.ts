@@ -10,7 +10,6 @@ import { createUserAction } from '../store/actions/user.actions';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
-  email_valid = false;
   clickCount = 0;
   type = 'password';
   registering = false;

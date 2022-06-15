@@ -1,1 +1,61 @@
-<p>dashboard works!</p>
+<div class="main-info">
+    <div class="info">
+        <ng-container *ngIf="selectedUser$ | async as user">
+            <h4>Main Information</h4>
+            <p>Id: {{user.id}}</p>
+            <p>User name: {{user.name}}</p>
+            <p>User e-mail: {{user.email}}</p>
+            <p>User password: {{user.password}}</p>
+            <hr>
+            <div class="btns">
+                <button type="button" class='btn btn-primary' (click)="toggleMainModify()">Change</button>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="info-panel" *ngIf="mainModify">
+            <h4>Modify Main Information</h4>
+            <div class="mainModifyform">
+                <form novalidate (ngSubmit)='onSubmitMain(mainModifyForm)' #mainModifyForm="ngForm">
+                    <div class="form-group">
+                        <input type="text" name="name" required autocomplete="off" placeholder="User name"
+                        [(ngModel)]='selectedUser.name'
+                        ngModel #name = 'ngModel' class="form-control">
+                        <div class="alert" [hidden]='name.valid || name.pristine'>
+                            Please enter your name
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" required autocomplete="off" placeholder="E-mail"
+                        [(ngModel)]='selectedUser.email'
+                        ngModel #email = 'ngModel' class="form-control">
+                        <div class="alert" [hidden]='email.valid || email.pristine'>
+                            Please enter correct email
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" 
+                        pattern="^(?=.*\d).{8,}$"
+                        name="password" required autocomplete="off" placeholder="User password"
+                        [(ngModel)]='selectedUser.password'
+                        ngModel #password = 'ngModel' class="form-control">
+                        <div class="alert" [hidden]='password.valid || password.pristine'>
+                            Min 8 characters and at least 1 or all numbers
+                        </div>
+                    </div>
+                    <div *ngIf="!saving &&  !hasSaved" class="btns">
+                        <button [disabled]='mainModifyForm.invalid' type="submit" class='btn btn-secondary'>Save</button>
+                        <button type="button" class='btn btn-primary' (click)="toggleMainModify()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+</div>
+<div class="devices-info">
+    <div class="device-info">
+        <h4>Devices Information</h4>
+    </div>
+    <div class="device-panel">
+        <h4>Modify Devices Information</h4>
+    </div>
+</div>
