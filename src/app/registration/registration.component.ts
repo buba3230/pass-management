@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { UserInterface } from '../shared/types/interface/user-interface';
+import { createUserAction } from '../store/actions/user.actions';
 
 @Component({
   selector: 'app-registration',
@@ -12,13 +15,17 @@ export class RegistrationComponent implements OnInit {
   type = 'password';
   registering = false;
   hasAdded = false;
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(registerForm: NgForm): void {
-    console.log(registerForm.value);
+    this.createUser(registerForm.value);
+  }
+
+  createUser(userForCreating: UserInterface) {
+    this.store.dispatch(createUserAction({ user: userForCreating }))
   }
 
   togglePasswordInput(): void {

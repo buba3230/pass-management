@@ -17,6 +17,9 @@
             <div class="alert" [hidden]='password.valid || password.pristine'>
                 Min 8 characters and at least 1 or all numbers
             </div>
+            <div class="alert" *ngIf="error$ | async as error">
+                {{error}}
+            </div>
         </div>
         <div *ngIf="!registering &&  !hasAdded" class="panels">
             <button routerLink='/' type="button" class='btn btn-primary'>Register</button>

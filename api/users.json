@@ -1,17 +1,23 @@
 {
-    "users" : [
+  "users": [
+    {
+      "id": 1,
+      "name": "Vitalii",
+      "e-mail": "buba3230@gmail.com",
+      "password": "qqqwwweee1",
+      "devices": [
         {
-            "id": 1,
-            "name": "Vitalii",
-            "e-mail": "buba3230@gmail.com",
-            "password": "qqqwwweee1",
-            "devices": [
-                {
-                    "deviceId": 1,
-                    "deviceName": "phone",
-                    "devicePassword": "aaasssddd1"
-                }
-            ]
+          "deviceId": 1,
+          "deviceName": "phone",
+          "devicePassword": "aaasssddd1"
         }
-    ]
+      ]
+    },
+    {
+      "name": "qwe",
+      "email": "qwe@qwe.qw",
+      "password": "qawsedrf1",
+      "id": 2
+    }
+  ]
 }
