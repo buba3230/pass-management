@@ -5,45 +5,47 @@
             <p>Id: {{user.id}}</p>
             <p>User name: {{user.name}}</p>
             <p>User e-mail: {{user.email}}</p>
-            <p>User password: {{user.password}}</p>
+            <p>User password: {{changeToAsterics(user.password)}}</p>
             <hr>
             <div class="btns">
-                <button type="button" class='btn btn-primary' (click)="toggleMainModify()">Change</button>
+                <button type="button" class='btn btn-primary' (click)="toggleMainModify(); setCurrentUser(user);">Change</button>
             </div>
         </ng-container>
     </div>
 
     <div class="info-panel" *ngIf="mainModify">
-            <h4>Modify Main Information</h4>
-            <div class="mainModifyform">
+            <h4>Main Information</h4>
+            <div class="mainModifyform" >
                 <form novalidate (ngSubmit)='onSubmitMain(mainModifyForm)' #mainModifyForm="ngForm">
                     <div class="form-group">
                         <input type="text" name="name" required autocomplete="off" placeholder="User name"
-                        [(ngModel)]='selectedUser.name'
-                        ngModel #name = 'ngModel' class="form-control">
+                        [(ngModel)]='currentUser.name'
+                        ngModel #name = 'ngModel' class="form-control"
+                        >
                         <div class="alert" [hidden]='name.valid || name.pristine'>
                             Please enter your name
                         </div>
                     </div>
                     <div class="form-group">
                         <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" required autocomplete="off" placeholder="E-mail"
-                        [(ngModel)]='selectedUser.email'
+                        [(ngModel)]='currentUser.email'
                         ngModel #email = 'ngModel' class="form-control">
                         <div class="alert" [hidden]='email.valid || email.pristine'>
                             Please enter correct email
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="text" 
+                        <input [type]="type" 
                         pattern="^(?=.*\d).{8,}$"
                         name="password" required autocomplete="off" placeholder="User password"
-                        [(ngModel)]='selectedUser.password'
-                        ngModel #password = 'ngModel' class="form-control">
+                        [(ngModel)]='currentUser.password'
+                        ngModel #password = 'ngModel' class="form-control"
+                        (click)="togglePasswordInput()" (blur)="clearToggle()">
                         <div class="alert" [hidden]='password.valid || password.pristine'>
                             Min 8 characters and at least 1 or all numbers
                         </div>
                     </div>
-                    <div *ngIf="!saving &&  !hasSaved" class="btns">
+                    <div class="btns">
                         <button [disabled]='mainModifyForm.invalid' type="submit" class='btn btn-secondary'>Save</button>
                         <button type="button" class='btn btn-primary' (click)="toggleMainModify()">Cancel</button>
                     </div>
@@ -52,10 +54,71 @@
     </div>
 </div>
 <div class="devices-info">
-    <div class="device-info">
+    <div class="device-info" *ngIf="selectedUser$ | async as user">
         <h4>Devices Information</h4>
+        <table *ngIf="user.devices && user.devices.length && user.devices.length>0">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Password</th>
+                <th>Actions</th>
+            </tr>
+            <tr *ngFor="let device of user.devices">
+                <td>{{device.deviceId}}</td>
+                <td>{{device.deviceName}}</td>
+                <td>{{changeToAsterics(device.devicePassword)}}</td>
+                <td class="actions">
+                    <ng-container *ngIf="device.deviceId != deleteId">
+                        <button type="button" class='btn btn-primary btn-action' (click)="deleteDeviceQuestion(device.deviceId)">Delete</button>
+                        <button type="button" class='btn btn-secondary btn-action' (click)="allowModify(device)">Modify</button>
+                    </ng-container>
+                    <ng-container *ngIf="device.deviceId === deleteId">
+                        <span>Are your sure???</span>
+                        <br>
+                        <button type="button" class='btn btn-primary btn-action' (click)="deleteDevice(device.deviceId)">Delete</button>
+                        <button type="button" class='btn btn-secondary btn-action' (click)="cancelDelete()">Cancel</button>
+                    </ng-container>
+                </td>
+            </tr>
+        </table>
+        <hr>
+        <div class="btns">
+            <button type="button" class='btn btn-primary' (click)="toggleDeviceModify()">Add device</button>
+        </div>
     </div>
-    <div class="device-panel">
-        <h4>Modify Devices Information</h4>
+    <div class="device-panel" *ngIf="deviceModify">
+        <h4>Devices Information</h4>
+        <div class="deviceModifyform">
+            <form novalidate (ngSubmit)='onSubmitDevice(deviceModifyForm)' #deviceModifyForm="ngForm">
+                <div class="form-group">
+                    <input type="text" name="deviceName" required autocomplete="off" placeholder="Device name"
+                    [(ngModel)]='device.deviceName'
+                    ngModel #deviceName = 'ngModel' class="form-control">
+                    <div class="alert" [hidden]='deviceName.valid || deviceName.pristine'>
+                        Please enter device name
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input [type]="type" 
+                    pattern="^(?=.*\d).{8,}$"
+                    name="devicePassword" required autocomplete="off" placeholder="Device password"
+                    [(ngModel)]='device.devicePassword'
+                    ngModel #devicePassword = 'ngModel' class="form-control"
+                    (click)="togglePasswordInput()" (blur)="clearToggle()">
+                    <div class="alert" [hidden]='devicePassword.valid || devicePassword.pristine'>
+                        Min 8 characters and at least 1 or all numbers
+                    </div>
+                </div>
+                <div class="btns">
+                    <ng-container *ngIf="isModify">
+                        <button [disabled]='deviceModifyForm.invalid' type="button" class='btn btn-secondary' (click)="modifyDevice(deviceModifyForm)">Update</button>  
+                    </ng-container>
+                    <ng-container *ngIf="!isModify">
+                        <button [disabled]='deviceModifyForm.invalid' type="submit" class='btn btn-secondary'>Save</button>
+                    </ng-container>
+                    <button type="button" class='btn btn-primary' (click)="toggleDeviceModify()">Cancel</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

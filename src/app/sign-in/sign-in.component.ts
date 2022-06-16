@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { UserInterface } from '../shared/types/interface/user-interface';
-import { getUserByIdAction, getUserByInfoAction } from '../store/actions/user.actions';
+import { getUserByInfoAction } from '../store/actions/user.actions';
 import { userErrorSelector } from '../store/selectors/user.selectors';
-import { clearSessionStorage } from '../store/state/store';
+import { clearSessionStorage } from '../store/state/sessionStorage';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,8 +14,6 @@ import { clearSessionStorage } from '../store/state/store';
 export class SignInComponent implements OnInit {
   clickCount = 0;
   type = 'password';
-  registering = false;
-  hasAdded = false;
   error$ = this.store.select(userErrorSelector);
   constructor(private store: Store) { }
 
@@ -24,7 +22,6 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(signInForm: NgForm): void {
-    console.log(signInForm.value);
     const user = { "id": 0, "name": signInForm.value.name, "email": "", password: signInForm.value.password };
     this.signIn(user);
   }

@@ -13,24 +13,16 @@ export enum ActionTypes {
     GET_USER_BY_ID_FAILURE = '[USER] Get user by id failure',
     //get USER by name and password action types
     GET_USER_BY_INFO = '[USER] Get user by info',
-    GET_USER_BY_INFO_SUCCESS = '[USER] Get user by info success',
     GET_USER_BY_INFO_FAILURE = '[USER] Get user by info failure',
     //**DEVICES**/
     //create action types
     CREATE_DEVICE = '[DEVICE] Create',
-    CREATE_DEVICE_SUCCESS = '[DEVICE] Create success',
     CREATE_DEVICE_FAILURE = '[DEVICE] Create failure',
     //update action types
     UPDATE_DEVICE = '[DEVICE] Update',
-    UPDATE_DEVICE_SUCCESS = '[DEVICE] Update success',
     UPDATE_DEVICE_FAILURE = '[DEVICE] Update failure',
     //delete action types
     DELETE_DEVICE = '[DEVICE] Delete',
-    DELETE_DEVICE_SUCCESS = '[DEVICE] Delete success',
     DELETE_DEVICE_FAILURE = '[DEVICE] Delete failure',
-    //get ALL devices action types
-    GET_ALL_DEVICES = '[DEVICE] Get all devices',
-    GET_ALL_DEVICES_SUCCESS = '[DEVICE] Get all devices success',
-    GET_ALL_DEVICES_FAILURE = '[DEVICE] Get all devices failure'
 }
 

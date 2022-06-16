@@ -21,7 +21,7 @@
                 {{error}}
             </div>
         </div>
-        <div *ngIf="!registering &&  !hasAdded" class="panels">
+        <div class="panels">
             <button routerLink='/' type="button" class='btn btn-primary'>Register</button>
             <button [disabled]='signInForm.invalid' type="submit" class='btn btn-secondary'>Enter</button>
         </div>

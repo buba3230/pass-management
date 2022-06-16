@@ -14,6 +14,10 @@ h4 {
     margin-top: 16px;
 }
 
+.deviceModifyform {
+    margin-top: 16px;
+}
+
 .form-group {
     margin-bottom: 1rem;
     input {
@@ -36,51 +40,105 @@ h4 {
 .btns {
     display: flex;
     justify-content: space-around;
-    .btn {
-        width: 100px;
-        border-radius: 5px;
-        height: 1.5rem;
-        border: 0;
-        cursor: pointer;
-        &-primary {
-            background-color:lightcoral;
-        }
+}
 
-        &-secondary {
-            background-color:aquamarine;
-        }
+.btn {
+    width: 100px;
+    border-radius: 5px;
+    height: 1.5rem;
+    border: 0;
+    cursor: pointer;
+    &-primary {
+        background-color:lightcoral;
+    }
+
+    &-secondary {
+        background-color:aquamarine;
+    }
+    &-action {
+        margin: 5px;
+    }
+}
+
+@keyframes move_from_right {
+    0% {
+      transform: translateX(40rem);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+}
+
+@keyframes move_from_right {
+    0% {
+      transform: translateX(40rem);
+    }
+  
+    100% {
+      transform: translateX(0);
     }
 }
 
 .main-info {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     margin-bottom: 15px;
     .info {
         padding: 15px;
-        width: 100%;
+        width: 500px;
         border: 1px solid black;
     }
     .info-panel {
         padding: 15px;
-        width: 100%;
+        width: 500px;
         border: 1px solid black;
+        animation: move_from_right 2s; 
     }
+    
 }
 
 .devices-info {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
     .device-info {
         padding: 15px;
-        width: 100%;
+        width: 500px;
         border: 1px solid black;
+
+        table {
+            border-spacing: 0;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid black;
+        }
+
+        td {
+            padding-inline-start: 5px;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            min-width: 120px;
+
+            span {
+                text-align: center;
+                width: 100%;
+            }
+        }
     }
     .device-panel {
         padding: 15px;
-        width: 100%;
+        width: 500px;
         border: 1px solid black;
+        animation: move_from_right 2s; 
     }
 }

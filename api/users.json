@@ -4,7 +4,19 @@
       "name": "Vitalii",
       "email": "buba3230@gmail.com",
       "password": "qqqwwweee1",
-      "id": 1
+      "id": 1,
+      "devices": [
+        {
+          "deviceName": "Oppo Reno3 Pro",
+          "devicePassword": "qweqweqwe1",
+          "deviceId": 1
+        },
+        {
+          "deviceName": "Mi Box S",
+          "devicePassword": "123asdzxc",
+          "deviceId": 2
+        }
+      ]
     },
     {
       "name": "qwe",

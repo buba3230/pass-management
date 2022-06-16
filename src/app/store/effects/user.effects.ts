@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { of, throwError } from "rxjs";
+import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { UserInterface } from "src/app/shared/types/interface/user-interface";
 import { UserService } from "../service/user.service";
@@ -11,8 +11,11 @@ import {
     updateUserAction, updateUserSuccessAction, updateUserFailureAction,
     getUserByIdAction, getUserByIdSuccessAction, getUserByIdFailureAction,
     getUserByInfoAction, getUserByInfoFailureAction,
+    createDeviceAction, createDeviceFailureAction,
+    deleteDeviceAction, deleteDeviceFailureAction,
+    updateDeviceAction, updateDeviceFailureAction,
 } from "../actions/user.actions";
-import { clearSessionStorage, setItem } from "../state/store";
+import { clearSessionStorage, setItem } from "../state/sessionStorage";
 
 @Injectable()
 export class userEffects {
@@ -34,11 +37,81 @@ export class userEffects {
         )
     );
 
+    createDevice$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(createDeviceAction),
+            switchMap(({ userId, device }) => {
+                return this.userService.addDeviceToUser(userId, device).pipe(
+                    tap((user: UserInterface) => {
+                        clearSessionStorage();
+                        setItem('selectedUser', user);
+                    }),
+                    map((user: UserInterface) => {
+                        return updateUserSuccessAction({ user })
+                    })
+                )
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+                return of(createDeviceFailureAction(
+                    { errors: errorResponse.error.errors }
+                ))
+            })
+        )
+    );
+
+    deleteDevice$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(deleteDeviceAction),
+            switchMap(({ userId, deviceId }) => {
+                return this.userService.deleteDevice(userId, deviceId).pipe(
+                    tap((user: UserInterface) => {
+                        clearSessionStorage();
+                        setItem('selectedUser', user);
+                    }),
+                    map((user: UserInterface) => {
+                        return updateUserSuccessAction({ user })
+                    })
+                )
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+                return of(deleteDeviceFailureAction(
+                    { errors: errorResponse.error.errors }
+                ))
+            })
+        )
+    );
+
+    updateDevice$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateDeviceAction),
+            switchMap(({ userId, device }) => {
+                return this.userService.updateDevice(userId, device).pipe(
+                    tap((user: UserInterface) => {
+                        clearSessionStorage();
+                        setItem('selectedUser', user);
+                    }),
+                    map((user: UserInterface) => {
+                        return updateUserSuccessAction({ user })
+                    })
+                )
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+                return of(updateDeviceFailureAction(
+                    { errors: errorResponse.error.errors }
+                ))
+            })
+        )
+    );
+
     update$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateUserAction),
             switchMap(({ user }) => {
                 return this.userService.updateUser(user).pipe(
+                    tap((user: UserInterface) => {
+                        clearSessionStorage();
+                        setItem('selectedUser', user);
+                    }),
                     map((user: UserInterface) => {
                         return updateUserSuccessAction({ user })
                     })
@@ -109,7 +182,7 @@ export class userEffects {
         () => this.actions$.pipe(
             ofType(getUserByIdSuccessAction),
             tap(({ user }) => {
-                setItem('selectedUser', user)
+                setItem('selectedUser', user);
                 this.router.navigateByUrl('/dashboard');
             })
         ),

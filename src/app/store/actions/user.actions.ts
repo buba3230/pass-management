@@ -1,6 +1,6 @@
 
 import { createAction, props } from '@ngrx/store';
-import { UserInterface } from 'src/app/shared/types/interface/user-interface';
+import { DevicesInterface, UserInterface } from 'src/app/shared/types/interface/user-interface';
 import { ActionTypes } from '../actionTypes';
 
 /*create actions*/
@@ -60,5 +60,37 @@ export const getUserByInfoAction = createAction(
 
 export const getUserByInfoFailureAction = createAction(
     ActionTypes.GET_USER_BY_INFO_FAILURE,
+    props<{ errors: string }>()
+)
+
+/*devices actions*/
+//We dont need Success action, because with json DB we have to trigger updateUserSuccessAction when add device to user
+export const createDeviceAction = createAction(
+    ActionTypes.CREATE_DEVICE,
+    props<{ userId: number, device: DevicesInterface }>()
+)
+
+export const createDeviceFailureAction = createAction(
+    ActionTypes.CREATE_DEVICE_FAILURE,
+    props<{ errors: string }>()
+)
+
+export const deleteDeviceAction = createAction(
+    ActionTypes.DELETE_DEVICE,
+    props<{ userId: number, deviceId: number }>()
+)
+
+export const deleteDeviceFailureAction = createAction(
+    ActionTypes.CREATE_DEVICE_FAILURE,
+    props<{ errors: string }>()
+)
+
+export const updateDeviceAction = createAction(
+    ActionTypes.UPDATE_DEVICE,
+    props<{ userId: number, device: DevicesInterface }>()
+)
+
+export const updateDeviceFailureAction = createAction(
+    ActionTypes.UPDATE_DEVICE_FAILURE,
     props<{ errors: string }>()
 )

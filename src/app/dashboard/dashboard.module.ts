@@ -10,7 +10,6 @@ import { reducers } from "../store/reducers/user.reducers";
 import { UserService } from "../store/service/user.service";
 import { DashboardComponent } from "./dashboard.component";
 
-
 const routes: Routes = [
     {
         path: '',

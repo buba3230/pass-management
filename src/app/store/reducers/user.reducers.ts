@@ -2,10 +2,14 @@ import { Action, createReducer, on } from "@ngrx/store";
 
 import {
     createUserAction, createUserFailureAction, createUserSuccessAction,
+    deleteDeviceFailureAction,
     getUserByIdFailureAction,
-    getUserByIdSuccessAction
+    getUserByIdSuccessAction,
+    updateDeviceFailureAction,
+    updateUserFailureAction,
+    updateUserSuccessAction
 } from "src/app/store/actions/user.actions";
-import { getItem } from "../state/store";
+import { getItem } from "../state/sessionStorage";
 import { UserStateInterface } from "../types/userState.interface";
 
 const initialState: UserStateInterface = {
@@ -49,6 +53,35 @@ const userReducer = createReducer(
     ),
     on(
         getUserByIdFailureAction,
+        (state, action): UserStateInterface => ({
+            ...state,
+            error: action.errors
+        })
+    ),
+    on(
+        updateUserSuccessAction,
+        (state, action): UserStateInterface => ({
+            ...state,
+            selectedUser: action.user,
+            error: null
+        })
+    ),
+    on(
+        updateUserFailureAction,
+        (state, action): UserStateInterface => ({
+            ...state,
+            error: action.errors
+        })
+    ),
+    on(
+        deleteDeviceFailureAction,
+        (state, action): UserStateInterface => ({
+            ...state,
+            error: action.errors
+        })
+    ),
+    on(
+        updateDeviceFailureAction,
         (state, action): UserStateInterface => ({
             ...state,
             error: action.errors
