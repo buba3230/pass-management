@@ -9,7 +9,3 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ### Run DB JSON-Server
 
 Run `npm run api` for a db json server. Navigate to `http://localhost:3000/`. The app will automatically reload if you change any of the source files.
-
-#### Running unit tests
-
-Run `ng test` to execute the unit tests via [Jest](https://jestjs.io/).
