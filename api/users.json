@@ -5,16 +5,21 @@
       "email": "buba3230@gmail.com",
       "password": "qqqwwweee1",
       "id": 1,
-      "devices": [
+      "accounts": [
         {
-          "deviceName": "Oppo Reno3 Pro",
-          "devicePassword": "qweqweqwe1",
-          "deviceId": 1
+          "accountName": "Gmail",
+          "accountPassword": "qweqweqwe1",
+          "accountId": 1
         },
         {
-          "deviceName": "Mi Box S",
-          "devicePassword": "123asdzxc",
-          "deviceId": 2
+          "accountName": "MI Box S device",
+          "accountPassword": "123asdzxc",
+          "accountId": 2
+        },
+        {
+          "accountName": "paypall",
+          "accountPassword": "qweqweqwe1",
+          "accountId": 3
         }
       ]
     },

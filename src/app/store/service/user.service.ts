@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DevicesInterface, UserInterface } from 'src/app/shared/types/interface/user-interface';
+import { AccountInterface, UserInterface } from 'src/app/shared/types/interface/user-interface';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -16,23 +16,23 @@ export class UserService {
         )
     }
 
-    addDeviceToUser(userId: number, newDevice: DevicesInterface): Observable<any> {
+    addAccountToUser(userId: number, newAccount: AccountInterface): Observable<any> {
         return this.http.get<UserInterface[]>(this.url).pipe(
             map((users: UserInterface[]) => users.filter(user => user.id === userId)[0]),
             switchMap((user: UserInterface) => {
-                if (!user.hasOwnProperty('devices')) {
-                    user = { ...user, devices: [] };
-                    newDevice = { ...newDevice, deviceId: 1 }
+                if (!user.hasOwnProperty('accounts')) {
+                    user = { ...user, accounts: [] };
+                    newAccount = { ...newAccount, accountId: 1 }
                 } else {
-                    if (user.devices.length > 0) {
-                        let id = Math.max(...user.devices.map(el => el.deviceId));
-                        newDevice = { ...newDevice, deviceId: ++id }
+                    if (user.accounts.length > 0) {
+                        let id = Math.max(...user.accounts.map(el => el.accountId));
+                        newAccount = { ...newAccount, accountId: ++id }
                     }
                     else {
-                        newDevice = { ...newDevice, deviceId: 1 }
+                        newAccount = { ...newAccount, accountId: 1 }
                     }
                 }
-                user.devices.push(newDevice);
+                user.accounts.push(newAccount);
                 return this.http.put(this.url + '/' + userId, user).pipe(
                     catchError((error) => throwError(`Server do not response. Error : ${error.toString()}`))
                 );
@@ -40,11 +40,11 @@ export class UserService {
         )
     }
 
-    deleteDevice(userId: number, deviceId: number): Observable<any> {
+    deleteAccount(userId: number, accountId: number): Observable<any> {
         return this.http.get<UserInterface[]>(this.url).pipe(
             map((users: UserInterface[]) => users.filter(user => user.id === userId)[0]),
             switchMap((user: UserInterface) => {
-                user.devices = user.devices.filter(device => device.deviceId !== deviceId);
+                user.accounts = user.accounts.filter(account => account.accountId !== accountId);
                 return this.http.put(this.url + '/' + userId, user).pipe(
                     catchError((error) => throwError(`Server do not response. Error : ${error.toString()}`))
                 );
@@ -52,15 +52,15 @@ export class UserService {
         )
     }
 
-    updateDevice(userId: number, newDevice: DevicesInterface): Observable<any> {
+    updateAccount(userId: number, newAccount: AccountInterface): Observable<any> {
         return this.http.get<UserInterface[]>(this.url).pipe(
             map((users: UserInterface[]) => users.filter(user => user.id === userId)[0]),
             switchMap((user: UserInterface) => {
-                user.devices = user.devices.map(device => {
-                    if (device.deviceId === newDevice.deviceId) {
-                        return newDevice
+                user.accounts = user.accounts.map(account => {
+                    if (account.accountId === newAccount.accountId) {
+                        return newAccount
                     }
-                    return device;
+                    return account;
                 });
                 return this.http.put(this.url + '/' + userId, user).pipe(
                     catchError((error) => throwError(`Server do not response. Error : ${error.toString()}`))

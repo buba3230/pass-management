@@ -11,9 +11,9 @@ import {
     updateUserAction, updateUserSuccessAction, updateUserFailureAction,
     getUserByIdAction, getUserByIdSuccessAction, getUserByIdFailureAction,
     getUserByInfoAction, getUserByInfoFailureAction,
-    createDeviceAction, createDeviceFailureAction,
-    deleteDeviceAction, deleteDeviceFailureAction,
-    updateDeviceAction, updateDeviceFailureAction,
+    createAccountAction, createAccountFailureAction,
+    deleteAccountAction, deleteAccountFailureAction,
+    updateAccountAction, updateAccountFailureAction,
 } from "../actions/user.actions";
 import { clearSessionStorage, setItem } from "../state/sessionStorage";
 
@@ -37,11 +37,11 @@ export class userEffects {
         )
     );
 
-    createDevice$ = createEffect(() =>
+    createAccount$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(createDeviceAction),
-            switchMap(({ userId, device }) => {
-                return this.userService.addDeviceToUser(userId, device).pipe(
+            ofType(createAccountAction),
+            switchMap(({ userId, account }) => {
+                return this.userService.addAccountToUser(userId, account).pipe(
                     tap((user: UserInterface) => {
                         clearSessionStorage();
                         setItem('selectedUser', user);
@@ -52,18 +52,18 @@ export class userEffects {
                 )
             }),
             catchError((errorResponse: HttpErrorResponse) => {
-                return of(createDeviceFailureAction(
+                return of(createAccountFailureAction(
                     { errors: errorResponse.error.errors }
                 ))
             })
         )
     );
 
-    deleteDevice$ = createEffect(() =>
+    deleteAccount$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(deleteDeviceAction),
-            switchMap(({ userId, deviceId }) => {
-                return this.userService.deleteDevice(userId, deviceId).pipe(
+            ofType(deleteAccountAction),
+            switchMap(({ userId, accountId }) => {
+                return this.userService.deleteAccount(userId, accountId).pipe(
                     tap((user: UserInterface) => {
                         clearSessionStorage();
                         setItem('selectedUser', user);
@@ -74,18 +74,18 @@ export class userEffects {
                 )
             }),
             catchError((errorResponse: HttpErrorResponse) => {
-                return of(deleteDeviceFailureAction(
+                return of(deleteAccountFailureAction(
                     { errors: errorResponse.error.errors }
                 ))
             })
         )
     );
 
-    updateDevice$ = createEffect(() =>
+    updateAccount$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(updateDeviceAction),
-            switchMap(({ userId, device }) => {
-                return this.userService.updateDevice(userId, device).pipe(
+            ofType(updateAccountAction),
+            switchMap(({ userId, account }) => {
+                return this.userService.updateAccount(userId, account).pipe(
                     tap((user: UserInterface) => {
                         clearSessionStorage();
                         setItem('selectedUser', user);
@@ -96,7 +96,7 @@ export class userEffects {
                 )
             }),
             catchError((errorResponse: HttpErrorResponse) => {
-                return of(updateDeviceFailureAction(
+                return of(updateAccountFailureAction(
                     { errors: errorResponse.error.errors }
                 ))
             })

@@ -14,7 +14,7 @@ h4 {
     margin-top: 16px;
 }
 
-.deviceModifyform {
+.accountModifyform {
     margin-top: 16px;
 }
 
@@ -100,12 +100,12 @@ h4 {
     
 }
 
-.devices-info {
+.accounts-info {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    .device-info {
+    .account-info {
         padding: 15px;
         width: 500px;
         border: 1px solid black;
@@ -113,6 +113,7 @@ h4 {
         table {
             border-spacing: 0;
             width: 100%;
+            margin-top: 16px;
         }
         
         td, th {
@@ -135,7 +136,7 @@ h4 {
             }
         }
     }
-    .device-panel {
+    .account-panel {
         padding: 15px;
         width: 500px;
         border: 1px solid black;

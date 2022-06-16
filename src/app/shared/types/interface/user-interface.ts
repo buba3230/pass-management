@@ -1,7 +1,7 @@
-export interface DevicesInterface {
-    deviceId: number;
-    deviceName: string;
-    devicePassword: string;
+export interface AccountInterface {
+    accountId: number;
+    accountName: string;
+    accountPassword: string;
 }
 
 export interface UserInterface {
@@ -9,5 +9,5 @@ export interface UserInterface {
     "name": string;
     "email": string;
     "password": string;
-    "devices"?: DevicesInterface[]
+    "accounts"?: AccountInterface[]
 }

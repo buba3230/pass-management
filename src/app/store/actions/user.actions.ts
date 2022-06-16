@@ -1,6 +1,6 @@
 
 import { createAction, props } from '@ngrx/store';
-import { DevicesInterface, UserInterface } from 'src/app/shared/types/interface/user-interface';
+import { AccountInterface, UserInterface } from 'src/app/shared/types/interface/user-interface';
 import { ActionTypes } from '../actionTypes';
 
 /*create actions*/
@@ -63,34 +63,34 @@ export const getUserByInfoFailureAction = createAction(
     props<{ errors: string }>()
 )
 
-/*devices actions*/
-//We dont need Success action, because with json DB we have to trigger updateUserSuccessAction when add device to user
-export const createDeviceAction = createAction(
-    ActionTypes.CREATE_DEVICE,
-    props<{ userId: number, device: DevicesInterface }>()
+/*accounts actions*/
+//We dont need Success action, because with json DB we have to trigger updateUserSuccessAction when add account to user
+export const createAccountAction = createAction(
+    ActionTypes.CREATE_ACCOUNT,
+    props<{ userId: number, account: AccountInterface }>()
 )
 
-export const createDeviceFailureAction = createAction(
-    ActionTypes.CREATE_DEVICE_FAILURE,
+export const createAccountFailureAction = createAction(
+    ActionTypes.CREATE_ACCOUNT_FAILURE,
     props<{ errors: string }>()
 )
 
-export const deleteDeviceAction = createAction(
-    ActionTypes.DELETE_DEVICE,
-    props<{ userId: number, deviceId: number }>()
+export const deleteAccountAction = createAction(
+    ActionTypes.DELETE_ACCOUNT,
+    props<{ userId: number, accountId: number }>()
 )
 
-export const deleteDeviceFailureAction = createAction(
-    ActionTypes.CREATE_DEVICE_FAILURE,
+export const deleteAccountFailureAction = createAction(
+    ActionTypes.DELETE_ACCOUNT_FAILURE,
     props<{ errors: string }>()
 )
 
-export const updateDeviceAction = createAction(
-    ActionTypes.UPDATE_DEVICE,
-    props<{ userId: number, device: DevicesInterface }>()
+export const updateAccountAction = createAction(
+    ActionTypes.UPDATE_ACCOUNT,
+    props<{ userId: number, account: AccountInterface }>()
 )
 
-export const updateDeviceFailureAction = createAction(
-    ActionTypes.UPDATE_DEVICE_FAILURE,
+export const updateAccountFailureAction = createAction(
+    ActionTypes.UPDATE_ACCOUNT_FAILURE,
     props<{ errors: string }>()
 )

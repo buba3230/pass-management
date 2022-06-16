@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { DevicesInterface, UserInterface } from '../shared/types/interface/user-interface';
-import { createDeviceAction, deleteDeviceAction, getUserByIdAction, updateDeviceAction, updateUserAction } from '../store/actions/user.actions';
+import { AccountInterface, UserInterface } from '../shared/types/interface/user-interface';
+import { createAccountAction, deleteAccountAction, getUserByIdAction, updateAccountAction, updateUserAction } from '../store/actions/user.actions';
 import { selectedUserSelector } from '../store/selectors/user.selectors';
 import { getItem } from "../store/state/sessionStorage";
 
@@ -16,11 +16,11 @@ export class DashboardComponent implements OnInit {
   selectedUser$ = this.store.select(selectedUserSelector);
   selectedUser: UserInterface = getItem('selectedUser');
   mainModify = false;
-  deviceModify = false;
+  accountModify = false;
   currentUser: UserInterface;
   selectedUserSubscription: Subscription;
   deleteId: number;
-  device: DevicesInterface;
+  account: AccountInterface;
   isModify = false;
   type = 'password';
   clickCount = 0;
@@ -32,8 +32,8 @@ export class DashboardComponent implements OnInit {
 
   onSubmitMain(mainModifyForm: NgForm): void {
     let value = { ...mainModifyForm.value, id: this.selectedUser.id };
-    if (this.currentUser.devices) {
-      value = { ...value, devices: this.currentUser.devices };
+    if (this.currentUser.accounts) {
+      value = { ...value, accounts: this.currentUser.accounts };
     }
     this.updateUser(value, this.selectedUser.id);
     this.mainModify = false;
@@ -44,22 +44,22 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(getUserByIdAction({ id }))
   }
 
-  onSubmitDevice(deviceModifyForm: NgForm): void {
-    this.addDevice(this.selectedUser.id, deviceModifyForm.value);
-    this.deviceModify = false;
+  onSubmitAccount(AccountModifyForm: NgForm): void {
+    this.addAccount(this.selectedUser.id, AccountModifyForm.value);
+    this.accountModify = false;
   }
 
-  addDevice(userId: number, device: DevicesInterface): void {
-    this.store.dispatch(createDeviceAction({ userId, device }));
+  addAccount(userId: number, account: AccountInterface): void {
+    this.store.dispatch(createAccountAction({ userId, account }));
     this.store.dispatch(getUserByIdAction({ id: userId }))
   }
 
-  deleteDevice(id: number): void {
-    this.store.dispatch(deleteDeviceAction({ userId: this.selectedUser.id, deviceId: id }));
+  deleteAccount(id: number): void {
+    this.store.dispatch(deleteAccountAction({ userId: this.selectedUser.id, accountId: id }));
     this.store.dispatch(getUserByIdAction({ id: this.selectedUser.id }))
   }
 
-  deleteDeviceQuestion(id: number) {
+  deleteAccountQuestion(id: number) {
     this.deleteId = id;
   }
 
@@ -67,18 +67,18 @@ export class DashboardComponent implements OnInit {
     this.deleteId = null;
   }
 
-  allowModify(device: DevicesInterface): void {
+  allowModify(account: AccountInterface): void {
     this.isModify = true;
-    this.deviceModify = true;
-    this.device = { ...device };
+    this.accountModify = true;
+    this.account = { ...account };
   }
 
-  modifyDevice(deviceModifyForm: NgForm): void {
-    const value = { ...deviceModifyForm.value, deviceId: this.device.deviceId };
-    this.store.dispatch(updateDeviceAction({ userId: this.selectedUser.id, device: value }));
+  modifyAccount(accountModifyForm: NgForm): void {
+    const value = { ...accountModifyForm.value, accountId: this.account.accountId };
+    this.store.dispatch(updateAccountAction({ userId: this.selectedUser.id, account: value }));
     this.store.dispatch(getUserByIdAction({ id: this.selectedUser.id }));
-    this.deviceModify = false;
-    this.device = { deviceId: null, deviceName: '', devicePassword: '' };
+    this.accountModify = false;
+    this.account = { accountId: null, accountName: '', accountPassword: '' };
   }
 
   setCurrentUser(user: UserInterface): void {
@@ -89,10 +89,10 @@ export class DashboardComponent implements OnInit {
     this.mainModify = !this.mainModify;
   }
 
-  toggleDeviceModify(): void {
+  toggleAccountModify(): void {
     this.isModify = false;
-    this.deviceModify = !this.deviceModify;
-    this.device = { deviceId: null, deviceName: '', devicePassword: '' };
+    this.accountModify = !this.accountModify;
+    this.account = { accountId: null, accountName: '', accountPassword: '' };
   }
 
   togglePasswordInput(): void {

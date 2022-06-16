@@ -14,15 +14,15 @@ export enum ActionTypes {
     //get USER by name and password action types
     GET_USER_BY_INFO = '[USER] Get user by info',
     GET_USER_BY_INFO_FAILURE = '[USER] Get user by info failure',
-    //**DEVICES**/
+    //**ACCOUNTS**/
     //create action types
-    CREATE_DEVICE = '[DEVICE] Create',
-    CREATE_DEVICE_FAILURE = '[DEVICE] Create failure',
+    CREATE_ACCOUNT = '[ACCOUNT] Create',
+    CREATE_ACCOUNT_FAILURE = '[ACCOUNT] Create failure',
     //update action types
-    UPDATE_DEVICE = '[DEVICE] Update',
-    UPDATE_DEVICE_FAILURE = '[DEVICE] Update failure',
+    UPDATE_ACCOUNT = '[ACCOUNT] Update',
+    UPDATE_ACCOUNT_FAILURE = '[ACCOUNT] Update failure',
     //delete action types
-    DELETE_DEVICE = '[DEVICE] Delete',
-    DELETE_DEVICE_FAILURE = '[DEVICE] Delete failure',
+    DELETE_ACCOUNT = '[ACCOUNT] Delete',
+    DELETE_ACCOUNT_FAILURE = '[ACCOUNT] Delete failure',
 }
 

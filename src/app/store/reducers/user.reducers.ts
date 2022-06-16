@@ -2,10 +2,10 @@ import { Action, createReducer, on } from "@ngrx/store";
 
 import {
     createUserAction, createUserFailureAction, createUserSuccessAction,
-    deleteDeviceFailureAction,
+    deleteAccountFailureAction,
     getUserByIdFailureAction,
     getUserByIdSuccessAction,
-    updateDeviceFailureAction,
+    updateAccountFailureAction,
     updateUserFailureAction,
     updateUserSuccessAction
 } from "src/app/store/actions/user.actions";
@@ -74,14 +74,14 @@ const userReducer = createReducer(
         })
     ),
     on(
-        deleteDeviceFailureAction,
+        deleteAccountFailureAction,
         (state, action): UserStateInterface => ({
             ...state,
             error: action.errors
         })
     ),
     on(
-        updateDeviceFailureAction,
+        updateAccountFailureAction,
         (state, action): UserStateInterface => ({
             ...state,
             error: action.errors
