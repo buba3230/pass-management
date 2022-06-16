@@ -24,10 +24,17 @@
       ]
     },
     {
-      "name": "qwe",
-      "email": "qwe@qwe.qw",
-      "password": "qawsedrf1",
-      "id": 2
+      "name": "User2",
+      "email": "user2@gmail.com",
+      "password": "zxczxczxc1",
+      "id": 2,
+      "accounts": [
+        {
+          "accountName": "Heroku",
+          "accountPassword": "azsxdcfv2",
+          "accountId": 1
+        }
+      ]
     }
   ]
 }

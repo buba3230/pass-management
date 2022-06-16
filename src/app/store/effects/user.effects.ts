@@ -170,7 +170,7 @@ export class userEffects {
     /* redirecting */
     redirectAfterCreating$ = createEffect(
         () => this.actions$.pipe(
-            ofType(getUserByInfoFailureAction),
+            ofType(createUserSuccessAction),
             tap(() => {
                 this.router.navigateByUrl('/sign-in');
             })
